@@ -2,7 +2,9 @@
 title: "Polynomial Regression"
 author: "Dr K"
 date: "November 7, 2019"
-output: html_document
+output:
+  html_document: default
+  word_document: default
 ---
 
 ```{r include=FALSE}
@@ -53,10 +55,19 @@ geom_line(aes(y=lwrc), color = "blue", linetype = "dashed")+
 
 
 ```
+## Try this
 
+```{r ,eval=FALSE}
+ggplot(mydf,aes(x=myx,y=myy)) +
+  geom_point() +
+  geom_lm(y ~ poly(x, 2), size = 1, colour = "red")
+```
+
+geom_lm(y ˜ poly(x, 2), size = 1, colour = "red")
 ## Plot fit2
 
 ```{r}
+mainTitle = expression(paste('quadratic fit y=',ax^2+b))
 temp_var <- predict(fit2,interval="confidence") 
 new_df <- cbind(mydf, temp_var) %>% rename(lwrc=lwr,uprc=upr,fitc=fit)
 temp_var2 <- predict(fit2,interval="prediction") 
@@ -69,7 +80,7 @@ geom_line(aes(y=lwrc), color = "blue", linetype = "dashed")+
     geom_line(aes(y=upr), color = "red", linetype = "dashed")+ 
     geom_line(aes(y=fit))+
   theme(plot.title = element_text(hjust = 0.5)) +
-  ggtitle("quadratic fit y = mx^2 + b")
+  ggtitle(mainTitle)
 
 
 ```
@@ -77,6 +88,7 @@ geom_line(aes(y=lwrc), color = "blue", linetype = "dashed")+
 ## Plot fit3
 
 ```{r}
+mainTitle = expression(paste('quadratic fit y=',ax^2+bx+c))
 temp_var <- predict(fit3,interval="confidence") 
 new_df <- cbind(mydf, temp_var) %>% rename(lwrc=lwr,uprc=upr,fitc=fit)
 temp_var2 <- predict(fit3,interval="prediction") 
@@ -89,6 +101,6 @@ geom_line(aes(y=lwrc), color = "blue", linetype = "dashed")+
     geom_line(aes(y=upr), color = "red", linetype = "dashed")+ 
     geom_line(aes(y=fit)) +
   theme(plot.title = element_text(hjust = 0.5)) +
-ggtitle(" full quadratic fit $ y = ax^2^ + bx + c$")
+ggtitle(mainTitle)
 
 ```
